@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Загрузите полифиллы для поддержки старых браузеров -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+        crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Загрузите следующее для поддержки BootstrapVueIcons -->
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+</head>
+
+<body>
+    <div id="app" class="container">
+        <b-navbar toggleable="lg" type="dark" variant="info">
+            <b-navbar-brand href="#">Пациенты</b-navbar-brand>
+
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav>
+                    <b-nav-item href="#">Врачи</b-nav-item>
+                    <b-nav-item href="#">Расписание</b-nav-item>
+                </b-navbar-nav>
+
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+                    <b-nav-form>
+                        <b-form-input size="sm" class="mr-sm-2" placeholder="Введите номер полиса"></b-form-input>
+                        <b-button size="sm" class="my-2 my-sm-0" type="submit">Найти карту</b-button>
+                    </b-nav-form>
+
+                    <b-nav-item-dropdown text="Запись" right>
+                        <b-dropdown-item href="#">Лабораторные исследования</b-dropdown-item>
+                        <b-dropdown-item href="#">Функциональная диагностика</b-dropdown-item>
+                        <b-dropdown-item href="#">Инструментальные исследования</b-dropdown-item>
+                        <b-dropdown-item href="#">Диспансеризация</b-dropdown-item>
+                    </b-nav-item-dropdown>
+
+                    <b-nav-item-dropdown right>
+                        <!-- Using 'button-content' slot -->
+                        <template #button-content>
+                            <em>Отчеты</em>
+                        </template>
+                        <b-dropdown-item href="#">Лист нетрудоспособности</b-dropdown-item>
+                        <b-dropdown-item href="#">Объем оказания медицинской помощи</b-dropdown-item>
+                        <b-dropdown-item href="#">Рецептурные препараты</b-dropdown-item>
+                        <b-dropdown-item href="#">Направления на госпитализацию</b-dropdown-item>
+                        <b-dropdown-item href="#">Стационар</b-dropdown-item>
+                        <b-dropdown-item href="#">Диспансерный учет</b-dropdown-item>
+                        <b-dropdown-item href="#">Вакцинация</b-dropdown-item>
+                        <b-dropdown-item href="#">Женская консультация</b-dropdown-item>
+                        <b-dropdown-item href="#">Помощь на дому</b-dropdown-item>
+                        <b-dropdown-item href="#">Программа диспансерного наблюдения</b-dropdown-item>
+                        <b-dropdown-item href="#">Проект "Онконастороженность"</b-dropdown-item>
+                        <b-dropdown-item href="#">Проект "Хроники"</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
+
+        <span v-bind:title="message" v-if="seen">
+            {{ message }}
+        </span>
+        <hr>
+        <b-container fluid>
+            <b-row>
+                <b-col>
+                    <b-img
+                        src="https://img.icons8.com/external-goofy-solid-kerismaker/96/228BE6/external-Papers-stationery-goofy-solid-kerismaker.png"
+                        alt="external-Papers-stationery-goofy-solid-kerismaker" /></b-img>
+                </b-col>
+                <b-col>
+                    <b-img src="https://img.icons8.com/ios-filled/100/228BE6/medical-doctor.png"
+                        alt="medical-doctor" /></b-img>
+                </b-col>
+                <b-col>
+                    <b-img src="https://img.icons8.com/ios/100/228BE6/heart-monitor.png" alt="heart-monitor" /></b-img>
+                </b-col>
+                <b-col>
+                    <b-img src="https://img.icons8.com/ios-filled/100/228BE6/pill.png" alt="pill" /></b-img>
+                </b-col>
+                <b-col>
+                    <b-img src="https://img.icons8.com/ios-filled/100/228BE6/hospital-3.png" alt="hospital-3" /></b-img>
+                </b-col>
+            </b-row>
+        </b-container>
+        <hr>
+        <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
+            <template #header>МИС Поликлиника</template>
+
+            <template #lead>
+            </template>
+
+            <hr class="my-4">
+
+            <p>
+                Это медицинская информационно-аналитическая система, которая объединяет базу данных электронных
+                медицинских карт, информацию о страхователях системы ОМС, данные лабораторных и инструментальных
+                исследований, расписания врачей и паспорта участков.
+            </p>
+        </b-jumbotron>
+        <hr>
+
+        <b-container fluid>
+            <b-row>
+                <b-col cols="4">
+                    <b-calendar
+                    selected-variant="success"
+                    today-variant="info"
+                    nav-button-variant="today-variant"
+                  ></b-calendar>
+
+            
+                </b-col>
+                <b-col cols="8">
+                    <b-form-group
+                    id="fieldset-1"
+                    description="Введите номер полиса пациента (16 цифр)"
+                    :state="state"
+                  >
+                    <b-form-input id="input-1" v-model="name" :state="state" trim></b-form-input>
+                  </b-form-group>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
+
+    <script>
+
+        new Vue({
+
+            el: '#app',
+            data: {
+                message: 'Привет, Vue!',
+                seen: false,
+            }
+        }
+        )    
+    </script>
+    <style>
+        #app {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+            color: aliceblue;
+        }
+
+        * {
+            margin: 0;
+        }
+
+        body {
+            width: 100%;
+            background: rgb(231, 231, 236);
+        }
+
+        .b-navbar {
+            width: auto;
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        text {
+            color: black;
+        }
+
+    </style>
+</body>
+
+</html>
